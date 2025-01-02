@@ -1,28 +1,36 @@
 <!-- src/main/resources/templates/posts/card.html -->
 <div class="card h-100" th:fragment="postCard (post)">
-  <div class="card-body">
-    <h5 class="card-title border-bottom pb-2" th:text="${post.title}">
-      Sample Title
-    </h5>
-    <p class="card-text" th:text="${post.description}">
-      Sample description goes here...
-    </p>
-  </div>
-  <div class="card-footer bg-transparent border-top-0">
-    <div class="d-flex justify-content-end gap-2">
-      <a
-        th:href="@{/posts/{id}/edit(id=${post.id})}"
-        class="btn btn-primary btn-sm"
-      >
-        수정
-      </a>
-      <form
-        th:action="@{/posts/{id}/delete(id=${post.id})}"
-        method="post"
-        style="display: inline"
-      >
-        <button type="submit" class="btn btn-danger btn-sm">삭제</button>
-      </form>
+    <div
+            class="card-body"
+            style="cursor: pointer"
+            th:attr="data-bs-target='#postModal' + ${post.id}"
+            data-bs-toggle="modal"
+    >
+        <h5 class="card-title border-bottom pb-2" th:text="${post.title}">
+            Sample Title
+        </h5>
+        <p class="card-text" th:text="${post.description}">
+            Sample description goes here...
+        </p>
     </div>
-  </div>
+    <div class="card-footer bg-transparent border-top-0"
+         style="cursor: pointer"
+         th:attr="data-bs-target='#postModal' + ${post.id}"
+         data-bs-toggle="modal">
+        <div class="d-flex justify-content-end gap-2">
+            <a
+                    th:href="@{/posts/{id}/edit(id=${post.id})}"
+                    class="btn btn-primary btn-sm"
+            >
+                수정
+            </a>
+            <form
+                    th:action="@{/posts/{id}/delete(id=${post.id})}"
+                    method="post"
+                    style="display: inline"
+            >
+                <button type="submit" class="btn btn-danger btn-sm">삭제</button>
+            </form>
+        </div>
+    </div>
 </div>
