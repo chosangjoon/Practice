@@ -26,22 +26,22 @@
 
       <!-- 게시물 목록 -->
       <!-- 게시물 목록을 표시하는 컨테이너 -->
-      <div class="list-group d-flex align-items-center">
-        <!-- 각 게시물을 순회하면서 카드 형태로 표시 -->
-        <div
-          th:each="post : ${posts}"
-          class="card h-100 col-md-6 mb-5"
-          style="width: 50%"
-        >
-          <!-- 카드 본문 영역 -->
-          <div class="card-body">
-            <!-- 게시물 제목 -->
-            <h2 th:text="${post.title}" class="h5 mb-2">Sample Post Title</h2>
-            <hr />
-            <!-- 게시물 내용 -->
-            <p th:text="${post.description}" class="card-text">
-              This is a short description of the post...
-            </p>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div th:each="post : ${posts}" class="col">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title" th:text="${post.title}">제목</h5>
+              <p class="card-text" th:text="${post.description}">내용</p>
+              <form
+                th:action="@{/posts/{id}/delete(id=${post.id})}"
+                method="post"
+                style="display: inline"
+              >
+                <button type="submit" class="btn btn-danger btn-sm">
+                  삭제
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
