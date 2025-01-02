@@ -53,7 +53,7 @@ public class HomeController {
         posts.add(newPost);
         return "redirect:/";
     }
-
+    // 게시물 삭제 처리 (POST 요청)
     @PostMapping("/posts/{id}/delete")
     public String deletePost(@PathVariable("id") Long id) {
         posts.removeIf(post -> post.getId().equals(id));
