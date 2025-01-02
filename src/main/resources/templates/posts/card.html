@@ -1,0 +1,8 @@
+<!-- src/main/resources/templates/posts/card.html -->
+<div class="card h-100 col-md-6 mb-5" th:fragment="Postcard">
+    <div class="card-body">
+        <h2 class="card-title h5 mb-2 border-bottom pb-2" th:text="${title}">Sample Title</h2>
+        <p class="card-text" th:text="${description}">Sample description goes here...</p>
+    </div>
+    <div th:remove="all"></div> <!-- 외부 변수 처리 -->
+</div>
