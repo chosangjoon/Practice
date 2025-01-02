@@ -32,6 +32,10 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
+        // 콘솔에 현재 게시물 목록과 ID 출력
+        System.out.println("Current posts:");
+        posts.forEach(post -> System.out.println("ID: " + post.getId() + ", Title: " + post.getTitle()));
+        
         model.addAttribute("posts", posts);
         return "index";
     }
@@ -53,6 +57,42 @@ public class HomeController {
     @PostMapping("/posts/{id}/delete")
     public String deletePost(@PathVariable("id") Long id) {
         posts.removeIf(post -> post.getId().equals(id));
+        return "redirect:/";
+    }
+
+    // 게시물 수정 폼을 보여주는 메서드
+    @GetMapping("/posts/{id}/edit")
+    public String editPostForm(@PathVariable("id") Long id, Model model) {
+        // ID로 게시물 찾기
+        Post post = posts.stream()
+                .filter(p -> p.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+
+        if (post == null) {
+            return "redirect:/";  // 게시물이 없으면 홈으로 리다이렉트
+        }
+
+        model.addAttribute("post", post);
+        return "posts/edit";  // posts/edit.html 템플릿으로 이동
+    }
+
+    // 게시물 수정을 처리하는 메서드
+    @PostMapping("/posts/{id}/edit")
+    public String updatePost(
+            @PathVariable("id") Long id,
+            @RequestParam("title") String title,
+            @RequestParam("description") String description) {
+        
+        // ID로 게시물 찾아서 수정
+        posts.stream()
+                .filter(p -> p.getId().equals(id))
+                .findFirst()
+                .ifPresent(post -> {
+                    post.setTitle(title);
+                    post.setDescription(description);
+                });
+
         return "redirect:/";
     }
 }
