@@ -12,5 +12,16 @@
     <p class="card-text" th:text="${post.description}">
       Sample description goes here...
     </p>
+    <div class="category" th:if="${post.category}">
+      카테고리: <span th:text="${post.category.name}"></span>
+    </div>
+    <div class="tags" th:if="${not #lists.isEmpty(post.tags)}">
+      태그:
+      <span
+        th:each="tag : ${post.tags}"
+        class="tag"
+        th:text="${tag.name}"
+      ></span>
+    </div>
   </div>
 </div>
